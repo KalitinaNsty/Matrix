@@ -14,11 +14,12 @@ namespace Matrix
             WriteMatrix(random, n, m);
             Console.WriteLine("введите номер строки из существующих: ");
             int row = int.Parse(Console.ReadLine());
-            int summMatrixRow = GetSummMatrixRow(random, n, row);
+            int summMatrixRow = GetSummMatrixRow(random, m, row);
             Console.WriteLine(summMatrixRow);
             Console.WriteLine("введите номер столбца из существующих: ");
             int column = int.Parse(Console.ReadLine());
-            int summMatrixColumn = GetSummMatrixColumn(random, m, column);
+            int summMatrixColumn = GetSummMatrixColumn(random, n, column);
+            Console.WriteLine(summMatrixColumn);
             int summMatrix = GetSummMatrix(random, n, m);
             Console.WriteLine(summMatrix);
             Console.WriteLine("введите число: ");
@@ -56,20 +57,20 @@ namespace Matrix
             }
             Console.WriteLine();
         }
-        static int GetSummMatrixRow(int[,] matrix, int n, int row)
+        static int GetSummMatrixRow(int[,] matrix, int m, int row)
         {
             int summ = 0;
-            for (int i = 0; i <= n; i++)
+            for (int i = 0; i < m; i++)
             {
                 int rowValue = matrix[row, i];
                 summ += rowValue;
             }
             return summ;
         }
-        static int GetSummMatrixColumn(int[,] matrix, int m, int column)
+        static int GetSummMatrixColumn(int[,] matrix, int n, int column)
         {
             int summ = 0;
-            for (int i = 0; i <= m; i++)
+            for (int i = 0; i < n; i++)
             {
                 int columnValue = matrix[i, column];
                 summ += columnValue;
