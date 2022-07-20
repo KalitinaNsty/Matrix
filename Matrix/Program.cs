@@ -11,25 +11,11 @@ namespace Matrix
             Console.WriteLine("введите количество столбцов: ");
             int m = int.Parse(Console.ReadLine());
             int[,] random = GetRandomMatrix(n, m, 0, 20);
-            WriteMatrix(random, n, m);
-            Console.WriteLine("введите номер строки из существующих: ");
-            int row = int.Parse(Console.ReadLine());
-            int summMatrixRow = GetSummMatrixRow(random, m, row);
-            Console.WriteLine(summMatrixRow);
-            Console.WriteLine("введите номер столбца из существующих: ");
-            int column = int.Parse(Console.ReadLine());
-            int summMatrixColumn = GetSummMatrixColumn(random, n, column);
-            Console.WriteLine(summMatrixColumn);
-            int summMatrix = GetSummMatrix(random, n, m);
-            Console.WriteLine(summMatrix);
-            Console.WriteLine("введите число: ");
-            int value = int.Parse(Console.ReadLine());
-            bool hasValue = HasValue(random, n, m, value);
-            Console.WriteLine(hasValue);
-            bool rowHasValue = RowHasValue(random, n, row, value);
-            Console.WriteLine(rowHasValue);
-            bool columnHasValue = ColumnHasValue(random, m, column, value);
-            Console.WriteLine(columnHasValue);
+            WriteMatrix(random);
+            int[,] random2 = GetRandomMatrix(n, m, 0, 20);
+            WriteMatrix(random2);
+            int[,] matrix = SummMatrix(random, random2);
+            WriteMatrix(matrix);
         }
 
         static int[,] GetRandomMatrix(int n, int m, int minValue, int maxValue)
@@ -45,8 +31,11 @@ namespace Matrix
             }
             return matrix;
         }
-        static void WriteMatrix(int[,] matrix, int n, int m)
+        static void WriteMatrix(int[,] matrix)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -103,9 +92,9 @@ namespace Matrix
             }
             return false;
         }
-        static bool RowHasValue(int[,] matrix, int n, int row, int value)
+        static bool RowHasValue(int[,] matrix, int m, int row, int value)
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < m; i++)
             {
                 if (matrix[row, i] == value)
                 {
@@ -114,9 +103,9 @@ namespace Matrix
             }
             return false;
         }
-        static bool ColumnHasValue(int[,] matrix, int m, int column, int value)
+        static bool ColumnHasValue(int[,] matrix, int n, int column, int value)
         {
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i < n; i++)
             {
                 if (matrix[i, column] == value)
                 {
@@ -125,6 +114,140 @@ namespace Matrix
             }
             return false;
         }
-
+        static int[] GetColumn(int[,] matrix, int n, int m, int numberColumn)
+        {
+            int[] column = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+               column[i] = matrix[i, numberColumn];
+            }
+            return column;
+        }
+        static void WriteArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"{array[i]} ");
+            }
+            Console.WriteLine();
+        }
+        static int[] GetRow(int[,] matrix, int m, int numberRow)
+        {
+            int[] row = new int[m];
+            for (int i = 0; i < m; i++)
+            {
+                row[i] = matrix[numberRow, i];
+            }
+            return row;
+        }
+        static int[] GetArraySummRow(int[,] matrix, int n, int m)
+        {
+            int[] row = new int[m];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    row[i] += matrix[i, j];
+                }
+            }
+            return row;
+        }
+        static int[] GetArraySummColumn(int[,] matrix, int n, int m)
+        {
+            int[] colimn = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    colimn[j] += matrix[i, j];
+                }             
+            }
+            return colimn;
+        }
+        static int[] ToArray(int[,] matrix, int n, int m)
+        {
+            int[] array = new int[matrix.Length];
+            for (int i = 0, k = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    array[k] = matrix[i, j];
+                    k++;
+                }
+            }
+            return array;
+        }
+        static int[,] Resize(int[,] matrix, int n, int m, int newN, int newM)
+        {
+            int[,] newMatrix = new int[newN, newM];
+            for (int i = 0; i < newN && i < n; i++)
+            {
+                for (int j = 0; j < newM && j < m; j++)
+                {
+                    newMatrix[i, j] = matrix[i, j];
+                }
+            }
+            return newMatrix;
+        }
+        static void CountRowsAndColumns(int[,] matrix, out int rows, out int columns)
+        {
+            rows = matrix.GetUpperBound(0) + 1; 
+            columns = matrix.Length / rows;
+        }
+        static int[,] RemoveColumn(int[,] matrix, int column)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            int newM = m - 1;
+            int[,] newMatrix = new int[n, newM];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0, w = 0; j < m && w < newM; j++, w++)
+                {
+                    if (j == column)
+                    {
+                        j++;
+                    }
+                    newMatrix[i, w] = matrix[i, j];
+                }
+            }
+            return newMatrix;
+        }
+        static int[,] RemoveRow(int[,] matrix, int row)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            int newRow = n - 1;
+            int[,] newMatrix = new int[newRow, m];
+            for (int i = 0, t = 0; i < n && t < newRow; i++, t++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (i == row)
+                    {
+                        i++;
+                    }
+                    newMatrix[t, j] = matrix[i, j];
+                }
+            }
+            return newMatrix;
+        }
+        static int[,] SummMatrix(int[,] matrix1, int[,] matrix2)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix1, out n, out m);
+            int[,] newMatrix = new int[n, m];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    newMatrix[i, j] = matrix1[i, j] + matrix2[i, j];
+                }
+            }
+            return newMatrix;
+        }
     }
 }
