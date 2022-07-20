@@ -9,11 +9,8 @@ namespace Matrix
             
         }
 
-        static int[,] GetRandomMatrix(int minValue, int maxValue)
+        static int[,] GetRandomMatrix(int minValue, int maxValue, int n, int m)
         {
-            int n = 0;
-            int m = 0;
-            CountRowsAndColumns(matrix, out n, out m);
             Random rnd = new Random();
             int[,] matrix = new int[n, m];
             for (int i = 0; i < n; i++)
