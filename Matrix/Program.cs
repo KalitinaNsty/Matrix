@@ -6,20 +6,14 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("введите количество строк в матрице: ");
-            int n = int.Parse(Console.ReadLine());
-            Console.WriteLine("введите количество столбцов: ");
-            int m = int.Parse(Console.ReadLine());
-            int[,] random = GetRandomMatrix(n, m, 0, 20);
-            WriteMatrix(random);
-            int[,] random2 = GetRandomMatrix(n, m, 0, 20);
-            WriteMatrix(random2);
-            int[,] matrix = SummMatrix(random, random2);
-            WriteMatrix(matrix);
+            
         }
 
-        static int[,] GetRandomMatrix(int n, int m, int minValue, int maxValue)
+        static int[,] GetRandomMatrix(int minValue, int maxValue)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             Random rnd = new Random();
             int[,] matrix = new int[n, m];
             for (int i = 0; i < n; i++)
@@ -46,8 +40,11 @@ namespace Matrix
             }
             Console.WriteLine();
         }
-        static int GetSummMatrixRow(int[,] matrix, int m, int row)
+        static int GetSummMatrixRow(int[,] matrix, int row)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int summ = 0;
             for (int i = 0; i < m; i++)
             {
@@ -56,8 +53,11 @@ namespace Matrix
             }
             return summ;
         }
-        static int GetSummMatrixColumn(int[,] matrix, int n, int column)
+        static int GetSummMatrixColumn(int[,] matrix, int column)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int summ = 0;
             for (int i = 0; i < n; i++)
             {
@@ -66,8 +66,11 @@ namespace Matrix
             }
             return summ;
         }
-        static int GetSummMatrix(int[,] matrix, int n, int m)
+        static int GetSummMatrix(int[,] matrix)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int summ = 0;
             for (int i = 0; i < n; i++)
             {
@@ -78,8 +81,11 @@ namespace Matrix
             }
             return summ;
         }
-        static bool HasValue(int[,] matrix, int n, int m, int value)
+        static bool HasValue(int[,] matrix, int value)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -92,8 +98,11 @@ namespace Matrix
             }
             return false;
         }
-        static bool RowHasValue(int[,] matrix, int m, int row, int value)
+        static bool RowHasValue(int[,] matrix, int row, int value)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             for (int i = 0; i < m; i++)
             {
                 if (matrix[row, i] == value)
@@ -103,8 +112,11 @@ namespace Matrix
             }
             return false;
         }
-        static bool ColumnHasValue(int[,] matrix, int n, int column, int value)
+        static bool ColumnHasValue(int[,] matrix, int column, int value)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             for (int i = 0; i < n; i++)
             {
                 if (matrix[i, column] == value)
@@ -114,8 +126,11 @@ namespace Matrix
             }
             return false;
         }
-        static int[] GetColumn(int[,] matrix, int n, int m, int numberColumn)
+        static int[] GetColumn(int[,] matrix, int numberColumn)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[] column = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -131,8 +146,11 @@ namespace Matrix
             }
             Console.WriteLine();
         }
-        static int[] GetRow(int[,] matrix, int m, int numberRow)
+        static int[] GetRow(int[,] matrix, int numberRow)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[] row = new int[m];
             for (int i = 0; i < m; i++)
             {
@@ -140,8 +158,11 @@ namespace Matrix
             }
             return row;
         }
-        static int[] GetArraySummRow(int[,] matrix, int n, int m)
+        static int[] GetArraySummRow(int[,] matrix)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[] row = new int[m];
             for (int i = 0; i < m; i++)
             {
@@ -152,8 +173,11 @@ namespace Matrix
             }
             return row;
         }
-        static int[] GetArraySummColumn(int[,] matrix, int n, int m)
+        static int[] GetArraySummColumn(int[,] matrix)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[] colimn = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -164,8 +188,11 @@ namespace Matrix
             }
             return colimn;
         }
-        static int[] ToArray(int[,] matrix, int n, int m)
+        static int[] ToArray(int[,] matrix)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[] array = new int[matrix.Length];
             for (int i = 0, k = 0; i < n; i++)
             {
@@ -177,8 +204,11 @@ namespace Matrix
             }
             return array;
         }
-        static int[,] Resize(int[,] matrix, int n, int m, int newN, int newM)
+        static int[,] Resize(int[,] matrix, int newN, int newM)
         {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
             int[,] newMatrix = new int[newN, newM];
             for (int i = 0; i < newN && i < n; i++)
             {
