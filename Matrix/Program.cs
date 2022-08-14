@@ -322,5 +322,19 @@ namespace Matrix
             }
             return newMatrix;
         }
+        static int[,] ReplacementRow(int[,] matrix, int row1, int row2)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    (matrix[row1, i], matrix[row2, i]) = (matrix[row2, i], matrix[row1, i]);
+                }
+            }
+            return matrix;
+        }
     }
 }
