@@ -6,9 +6,7 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-            int[,] randomMatrix = new int[3, 3] { {0, 2, 4 },{6, 7, 0 },{2, 3, 4} };
-            int[,] replaceRow = ReplacementRow(randomMatrix, 0, 1);
-            WriteMatrix(replaceRow);
+           
         }
 
         static int[,] GetRandomMatrix(int minValue, int maxValue, int n, int m)
@@ -275,6 +273,52 @@ namespace Matrix
                 {
                     newMatrix[i, j] = matrix1[i, j] + matrix2[i, j];
                 }
+            }
+            return newMatrix;
+        }
+        static int[,] ReplacementColumn(int[,] matrix, int column1, int column2)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    (matrix[i, column1], matrix[i, column2]) = (matrix[i, column2], matrix[i, column1]);
+                }
+            }
+            return matrix;
+        }
+        static int[,] AddRow(int[,] matrix)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            int newRow = n + 1;
+            int[,] newMatrix = new int[newRow, m];
+            for (int i = 0; i < n && i < newRow; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    newMatrix[i, j] = matrix[i, j];
+                }
+            }
+            return newMatrix;
+        }
+        static int[,] AddColumn(int[,] matrix)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            int newColumn = m + 1;
+            int[,] newMatrix = new int[n, newColumn];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m && j < newColumn; j++)
+                {
+                    newMatrix[i, j] = matrix[i, j]; 
+                } 
             }
             return newMatrix;
         }
