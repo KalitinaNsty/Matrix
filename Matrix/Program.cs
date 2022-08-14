@@ -6,7 +6,7 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-
+           
         }
 
         static int[,] GetRandomMatrix(int minValue, int maxValue, int n, int m)
@@ -275,6 +275,20 @@ namespace Matrix
                 }
             }
             return newMatrix;
+        }
+        static int[,] ReplacementColumn(int[,] matrix, int column1, int column2)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    (matrix[i, column1], matrix[i, column2]) = (matrix[i, column2], matrix[i, column1]);
+                }
+            }
+            return matrix;
         }
         static int[,] AddRow(int[,] matrix)
         {
