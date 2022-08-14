@@ -292,5 +292,21 @@ namespace Matrix
             }
             return newMatrix;
         }
+        static int[,] AddColumn(int[,] matrix)
+        {
+            int n = 0;
+            int m = 0;
+            CountRowsAndColumns(matrix, out n, out m);
+            int newColumn = m + 1;
+            int[,] newMatrix = new int[n, newColumn];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m && j < newColumn; j++)
+                {
+                    newMatrix[i, j] = matrix[i, j]; 
+                } 
+            }
+            return newMatrix;
+        }
     }
 }
